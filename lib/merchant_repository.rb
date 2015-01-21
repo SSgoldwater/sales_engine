@@ -1,5 +1,5 @@
 require 'pry'
-require 'csv'
+
 
 
 class MerchantRepository
@@ -9,7 +9,7 @@ class MerchantRepository
   end
 
   def all
-    csv = CSV.open('./data/merchants_test.csv')
+    csv = CSV.open('./test/support/merchants_test.csv')
     contents = []
     csv.each do |line|
       contents << line
@@ -18,9 +18,8 @@ class MerchantRepository
   end
 
 
-
   def random
-    csv = CSV.open('./data/merchants_test.csv')
+    csv = CSV.open('./test/support/merchants_test.csv')
     contents = []
     csv.each do |line|
       contents << line

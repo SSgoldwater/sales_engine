@@ -1,5 +1,5 @@
 require 'csv'
-require_relative './merchants.rb'
+require_relative './merchant.rb'
 
 class SalesEngine
   # your code goes here

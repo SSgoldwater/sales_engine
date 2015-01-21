@@ -2,6 +2,6 @@ require 'pry'
 require 'csv'
 
 
-class InvoicesRepository
+class InvoiceRepository
 
 end

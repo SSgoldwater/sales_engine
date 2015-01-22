@@ -17,7 +17,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_all_method_returns_all_merchants
-    expected = ["NAME: Schroeder-Jerde, ID: 1", "NAME: Klein, Rempel and Jones, ID: 2", "NAME: Willms and Sons, ID: 3", "NAME: Cummings-Thiel, ID: 4", "NAME: Williamson Group, ID: 5"]
+    expected = ["NAME: Schroeder-Jerde, ID: 1", "NAME: Klein, Rempel and Jones, ID: 2", "NAME: Willms and Sons, ID: 3", "NAME: Williamson Group, ID: 4", "NAME: Williamson Group, ID: 5"]
     assert_equal expected, @merchant_repository.all
   end
 
@@ -39,10 +39,20 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_find_by_name_returns_correct_match
+    assert_equal "NAME: Willms and sons, ID: 3", @merchant_repository.find_by_id(1)
+  end
+
+  def test_find_by_name_returns_correct_match
     assert_equal "NAME: Schroeder-Jerde, ID: 1", @merchant_repository.find_by_name("schroeder-jerde")
     assert_equal "NAME: Willms and Sons, ID: 3", @merchant_repository.find_by_name("willms and sons")
   end
-  
 
+  def test_it_had_find_all_by_name_method
+    assert @merchant_repository.find_all_by_name(name)
+  end
+
+  def test_find_all_by_name_returns_all_matches
+    assert_equal ["NAME: Williamson Group, ID: 4", "NAME: Williamson Group, ID: 5"], @merchant_repository.find_all_by_name("Williamson Group")
+  end
 
 end

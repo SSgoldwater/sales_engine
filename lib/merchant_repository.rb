@@ -1,4 +1,5 @@
 require_relative "./merchant_parser.rb"
+require_relative "./merchant.rb"
 require 'pry'
 
 
@@ -39,5 +40,14 @@ class MerchantRepository
     end
   end
 
+  def find_all_by_name(name)
+    names = []
+    @file.each do |merchant|
+      if merchant.name.downcase == name.downcase
+        names << "NAME: #{merchant.name}, ID: #{merchant.id}"
+      end
+    end
+    names
+  end
 
 end

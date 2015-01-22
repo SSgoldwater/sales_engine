@@ -15,9 +15,16 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_has_an_all_method
-    
+
 
   end
+
+  def test_it_has_a_random_method
+
+
+  end
+
+
 
 
 

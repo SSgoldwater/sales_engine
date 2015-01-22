@@ -40,7 +40,6 @@ class MerchantParserTest < Minitest::Test
     second = merchants[1]
     assert_equal 2, second.id
     assert_equal "Klein, Rempel and Jones", second.name
-
   end
 
 

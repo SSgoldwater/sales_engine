@@ -13,9 +13,6 @@ class InvoiceItemParser
     file.map do |line|
       InvoiceItem.new(line, self)
     end
-
   end
-
-
-
+  
 end

@@ -9,7 +9,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert invoice_repository
   end
 
-
+  
 
 
 end

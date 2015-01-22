@@ -13,4 +13,5 @@ class Item
     @merchant_id = data_line[:merchant_id].to_i
   end
 
+
 end

@@ -50,4 +50,5 @@ class MerchantRepository
     names
   end
 
+
 end

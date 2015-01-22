@@ -10,12 +10,10 @@ class MerchantTest < Minitest::Test
     assert_equal 6, merchant.id
   end
 
-
-end
-
-class FakeRepositoryTest
-
-
+  def test_it_stores_a_name
+    merchant = Merchant.new({:name => "Jeff"}, nil)
+    assert_equal "Jeff", merchant.name
+  end
 
 end
 

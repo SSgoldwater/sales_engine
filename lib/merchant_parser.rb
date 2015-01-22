@@ -15,7 +15,6 @@ class MerchantParser
     end
   end
 
-  
 
 
 end

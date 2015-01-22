@@ -24,7 +24,9 @@ class CustomerRepositoryTest < Minitest::Test
 
   end
 
+  def this_is_a_fake_test_test
 
+  end
 
 
 

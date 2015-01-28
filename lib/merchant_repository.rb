@@ -5,28 +5,31 @@ require 'pry'
 
 class MerchantRepository
 
-  def initialize(filename= "./test/support/merchants_test.csv")
-    parser = MerchantParser.new(filename)
+  def initialize(filename= "./test/support/merchants_test.csv", engine)
+    parser = MerchantParser.new(filename, engine)
     @file = parser.parse
+  end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
   end
 
   def all
     all = []
     @file.each do |merchant|
-      all << "NAME: #{merchant.name}, ID: #{merchant.id}"
+      all << merchant
     end
     all
   end
 
   def random
-    random_merchant = @file.sample
-    "NAME: #{random_merchant.name}, ID: #{random_merchant.id}"
+    @file.sample
   end
 
   def find_by_id(id_num= nil)
     @file.each do |merchant|
       if merchant.id == id_num
-        return "NAME: #{merchant.name}, ID: #{merchant.id}"
+        return merchant
       end
     end
   end
@@ -35,7 +38,7 @@ class MerchantRepository
   def find_by_name(name = nil)
     @file.each do |merchant|
       if merchant.name.downcase == name.downcase
-        return "NAME: #{merchant.name}, ID: #{merchant.id}"
+        return merchant
       end
     end
   end
@@ -44,7 +47,7 @@ class MerchantRepository
     names = []
     @file.each do |merchant|
       if merchant.name.downcase == name.downcase
-        names << "NAME: #{merchant.name}, ID: #{merchant.id}"
+        names << merchant
       end
     end
     names

@@ -5,48 +5,55 @@ require 'pry'
 
 class CustomerRepository
 
-  def initialize(filename= "./test/support/customers_test.csv")
-    parser = CustomerParser.new(filename)
+  def initialize(filename= "./test/support/customers_test.csv", engine)
+    @engine = engine
+    parser = CustomerParser.new(filename, @engine)
     @file = parser.parse
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 
   def all
     all = []
     @file.each do |customer|
-      all << "NAME: #{customer.first_name} #{customer.last_name}, ID: #{customer.id}"
+      all << customer
     end
     all
   end
 
   def random
-    random_customer = @file.sample
-    "NAME: #{random_customer.first_name} #{random_customer.last_name}, ID: #{random_customer.id}"
+    @file.sample
   end
 
   def find_by_id(id_num = nil)
     @file.each do |customer|
-      if customer.id == id_num
-        return "NAME: #{customer.first_name} #{customer.last_name}, ID: #{customer.id}"
+      if customer.id == id_num.to_s
+        return customer
       end
     end
   end
 
-  def find_by_name(name = nil)
+  def find_by_last_name(last_name = nil)
     @file.each do |customer|
-      if customer.first_name.downcase + " " + customer.last_name.downcase == name.downcase
-        return "NAME: #{customer.first_name} #{customer.last_name}, ID: #{customer.id}"
+      if customer.last_name.downcase == last_name.downcase
+        return customer
       end
     end
   end
 
-  def find_all_by_name(name)
+  def find_all_by_first_name(first_name = nil)
     names = []
     @file.each do |customer|
-      if customer.first_name.downcase + " " + customer.last_name.downcase == name.downcase
-        names << "NAME: #{customer.first_name} #{customer.last_name}, ID: #{customer.id}"
+      if customer.first_name.downcase == first_name.downcase
+        names << customer
       end
     end
       names
   end
+
+
 
 end

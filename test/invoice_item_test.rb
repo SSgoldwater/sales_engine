@@ -36,13 +36,13 @@ class InvoiceItemParserTest < Minitest::Test
 
   def test_it_exists
     filename = ".test/support/invoice_items_test.csv"
-    invoice_item_parser = InvoiceItemParser.new(filename)
+    invoice_item_parser = InvoiceItemParser.new(filename, nil)
     assert invoice_item_parser
   end
 
   def test_it_parses_a_csv
     filename = "./test/support/invoice_items_test.csv"
-    invoice_item_parser = InvoiceItemParser.new(filename)
+    invoice_item_parser = InvoiceItemParser.new(filename, nil)
     invoice_items = invoice_item_parser.parse
 
     first = invoice_items[0]

@@ -6,7 +6,7 @@ class SalesEngineTest < Minitest::Test
 
 
   def test_it_exists?
-    engine = SalesEngine.new
+    engine = SalesEngine.new("/Users/Goldwater/Desktop/Development/sales_engine/test/support")
     assert engine
   end
 

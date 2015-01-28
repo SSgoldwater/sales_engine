@@ -5,28 +5,33 @@ require 'pry'
 
 class InvoiceItemRepository
 
-  def initialize(filename= "./test/support/invoice_items_test.csv")
-    parser = InvoiceItemParser.new(filename)
+  def initialize(filename= "./test/support/invoice_items_test.csv", engine)
+    @engine = engine
+    parser = InvoiceItemParser.new(filename, @engine)
     @file = parser.parse
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 
   def all
     all = []
     @file.each do |invoice_item|
-      all << "ID: #{invoice_item.id}, ITEM ID: #{invoice_item.item_id}, INVOICE ID: #{invoice_item.invoice_id}, QUANTITY: #{invoice_item.quantity}, UNIT PRICE: #{invoice_item.unit_price}"
+      all << invoice_item
     end
     all
   end
 
   def random
-    random_invoice_item = @file.sample
-    "ID: #{random_invoice_item.id}, ITEM ID: #{random_invoice_item.item_id}, INVOICE ID: #{random_invoice_item.invoice_id}, QUANTITY: #{random_invoice_item.quantity}, UNIT PRICE: #{random_invoice_item.unit_price}"
+    @file.sample
   end
 
   def find_by_id(id_num = nil)
     @file.each do |invoice_item|
       if invoice_item.id == id_num
-        return "ID: #{invoice_item.id}, ITEM ID: #{invoice_item.item_id}, INVOICE ID: #{invoice_item.invoice_id}, QUANTITY: #{invoice_item.quantity}, UNIT PRICE: #{invoice_item.unit_price}"
+        return invoice_item
       end
     end
   end
@@ -34,7 +39,8 @@ class InvoiceItemRepository
   def find_by_item_id(item_id = nil)
     @file.each do |invoice_item|
       if invoice_item.item_id == item_id
-        return "ID: #{invoice_item.id}, ITEM ID: #{invoice_item.item_id}, INVOICE ID: #{invoice_item.invoice_id}, QUANTITY: #{invoice_item.quantity}, UNIT PRICE: #{invoice_item.unit_price}"
+        # binding.pry
+        return invoice_item
       end
     end
   end
@@ -43,7 +49,27 @@ class InvoiceItemRepository
     invoice_items = []
     @file.each do |invoice_item|
       if invoice_item.item_id == item_id
-        invoice_items << "ID: #{invoice_item.id}, ITEM ID: #{invoice_item.item_id}, INVOICE ID: #{invoice_item.invoice_id}, QUANTITY: #{invoice_item.quantity}, UNIT PRICE: #{invoice_item.unit_price}"
+        invoice_items << invoice_item
+      end
+    end
+    invoice_items
+  end
+
+  def find_all_by_invoice_id(invoice_id)
+    invoice_items = []
+    @file.each do |invoice_item|
+      if invoice_item.invoice_id == invoice_id
+        invoice_items << invoice_item
+      end
+    end
+    invoice_items
+  end
+
+  def find_all_by_quantity(quantity)
+    invoice_items = []
+    @file.each do |invoice_item|
+      if invoice_item.quantity == quantity
+        invoice_items << invoice_item
       end
     end
     invoice_items

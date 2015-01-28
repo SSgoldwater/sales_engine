@@ -24,13 +24,13 @@ class MerchantParserTest < Minitest::Test
 
   def test_it_exists
     filename = "./test/support/merchants_test.csv"
-    merchantparser = MerchantParser.new(filename)
+    merchantparser = MerchantParser.new(filename, nil)
     assert merchantparser
   end
 
   def test_it_parses_a_csv
     filename = "./test/support/merchants_test.csv"
-    merchantparser = MerchantParser.new(filename)
+    merchantparser = MerchantParser.new(filename, nil)
     merchants = merchantparser.parse
 
     first = merchants[0]

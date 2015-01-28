@@ -5,7 +5,7 @@ require_relative '../lib/invoice_item_repository.rb'
 class InvoiceItemTest < Minitest::Test
 
   def setup
-    @invoice_item_repository = InvoiceItemRepository.new
+    @invoice_item_repository = InvoiceItemRepository.new("./test/support/invoice_items_test.csv", nil)
   end
 
   def test_it_exists
@@ -17,8 +17,12 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_all_method_returns_all_invoice_items
-    expected = ["ID: 1, ITEM ID: 539, INVOICE ID: 1, QUANTITY: 5, UNIT PRICE: 13635", "ID: 2, ITEM ID: 528, INVOICE ID: 2, QUANTITY: 9, UNIT PRICE: 23324", "ID: 3, ITEM ID: 528, INVOICE ID: 2, QUANTITY: 9, UNIT PRICE: 23324"]
-    assert_equal expected, @invoice_item_repository.all
+    expected_invoice_items = [InvoiceItem.new({:id => "1", :item_id => "539", :invoice_id => "1", :quantity => "5", :unit_price => "13635"}, nil), InvoiceItem.new({:id => "2", :item_id => "528", :invoice_id => "2", :quantity => "9", :unit_price => "23324"}, nil), InvoiceItem.new({:id => "3", :item_id => "528", :invoice_id => "2", :quantity => "9", :unit_price => "23324"}, nil)]
+    actual_invoice_items = @invoice_item_repository.all
+
+    expected_item_ids = expected_invoice_items.map{|ii| ii.id}
+    actual_item_ids = actual_invoice_items.map{|ii| ii.id}
+    assert_equal expected_item_ids, actual_item_ids
   end
 
   def test_it_has_a_random_method
@@ -30,8 +34,9 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_find_by_id_returns_correct_match
-    expected = "ID: 2, ITEM ID: 528, INVOICE ID: 2, QUANTITY: 9, UNIT PRICE: 23324"
-    assert_equal expected, @invoice_item_repository.find_by_id(2)
+    expected = InvoiceItem.new({:id => "2", :item_id => "528", :invoice_id => "2", :quantity => "9", :unit_price => "23324"}, nil)
+    actual = @invoice_item_repository.find_by_id(2)
+    assert_equal expected.id, actual.id
   end
 
   def test_it_has_a_find_by_item_id_method
@@ -39,11 +44,19 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_find_by_item_id_returns_correct_match
-    assert_equal "ID: 2, ITEM ID: 528, INVOICE ID: 2, QUANTITY: 9, UNIT PRICE: 23324", @invoice_item_repository.find_by_item_id(528)
+    expected = InvoiceItem.new({:id => "2", :item_id => "528", :invoice_id => "2", :quantity => "9", :unit_price => "23324"}, nil)
+    actual = @invoice_item_repository.find_by_item_id(528)
+    assert_equal expected.id, actual.id
   end
 
   def test_find_all_by_item_id_returns_all_matches_in_an_array
-    assert_equal ["ID: 2, ITEM ID: 528, INVOICE ID: 2, QUANTITY: 9, UNIT PRICE: 23324", "ID: 3, ITEM ID: 528, INVOICE ID: 2, QUANTITY: 9, UNIT PRICE: 23324"], @invoice_item_repository.find_all_by_item_id(528)
+    expected_invoice_items = [InvoiceItem.new({:id => "2", :item_id => "528", :invoice_id => "2", :quantity => "9", :unit_price => "23324"}, nil), InvoiceItem.new({:id => "3", :item_id => "528", :invoice_id => "2", :quantity => "9", :unit_price => "23324"}, nil)]
+    actual_invoice_items = @invoice_item_repository.find_all_by_item_id(528)
+
+    expected_ids = expected_invoice_items.map{|i_i| i_i.id}
+    actual_ids = actual_invoice_items.map{|i_i| i_i.id}
+
+    assert_equal expected_ids,  actual_ids
   end
 
 

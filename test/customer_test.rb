@@ -29,24 +29,24 @@ class CustomerParserTest < Minitest::Test
 
   def test_it_exists
     filename = "./test/support/customers_test.csv"
-    invoiceparser = CustomerParser.new(filename)
+    invoiceparser = CustomerParser.new(filename, nil)
     assert invoiceparser
   end
 
   def test_it_parses_a_csv
     filename = "./test/support/customers_test.csv"
-    customerparser = CustomerParser.new(filename)
+    customerparser = CustomerParser.new(filename, nil)
     customers = customerparser.parse
 
     first = customers[0]
     assert_equal "Joey", first.first_name
     assert_equal "Ondricka", first.last_name
-    assert_equal 1, first.id
+    assert_equal "1", first.id
 
     second = customers[1]
     assert_equal "Cecelia", second.first_name
     assert_equal "Osinski", second.last_name
-    assert_equal 2, second.id
+    assert_equal "2", second.id
   end
 
 end

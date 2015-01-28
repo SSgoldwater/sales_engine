@@ -1,3 +1,5 @@
+require_relative "./invoice_parser.rb"
+require_relative "./invoice.rb"
 require 'pry'
 require 'csv'
 
@@ -5,10 +7,16 @@ require 'csv'
 
 class InvoiceRepository
 
-  def initialize(filename = "./test/support/invoices_test.csv")
-    parser = InvoiceParser.new(filename)
+  def initialize(filename = "./test/support/invoices_test.csv", engine)
+    @engine = engine
+    parser = InvoiceParser.new(filename, @engine)
     @file = parser.parse
   end
+
+  def inspect
+    "#<#{self.class} #{@merchants.size} rows>"
+  end
+
 
   def all
     all = []
@@ -25,7 +33,7 @@ class InvoiceRepository
   def find_by_id(id_num = nil)
     @file.each do |invoice|
       if invoice.id == id_num
-        return "ID: #{invoice.id}, CUSTOMER: #{invoice.customer_id}, MERCHANT: #{invoice.merchant_id}, STATUS: #{invoice.status}"
+        return invoice
       end
     end
   end
@@ -38,14 +46,48 @@ class InvoiceRepository
     end
   end
 
-  def find_all_by_customer_id(customer = nil)
-    customers = []
+  def find_by_status(status)
     @file.each do |invoice|
-      if invoice.customer_id == customer
-        customers << "ID: #{invoice.id}, CUSTOMER: #{invoice.customer_id}, MERCHANT: #{invoice.merchant_id}, STATUS: #{invoice.status}"
+      if invoice.status == status
+        return invoice
+      else
+        return nil
       end
     end
-    customers
   end
+
+  def find_all_by_customer_id(customer_id = nil)
+    invoices = []
+    @file.each do |invoice|
+      if invoice.customer_id == customer_id
+        invoices << invoice
+      end
+    end
+    invoices
+  end
+
+  def find_all_by_merchant_id(merchant_id)
+    invoices = []
+    @file.each do |invoice|
+      if invoice.merchant_id == merchant_id
+        invoices << invoice
+      end
+    end
+    invoices
+  end
+
+  def find_all_by_status(status)
+    invoices = []
+    @file.each do |invoice|
+      if invoice.status == status
+        invoices << invoice
+      end
+    end
+    invoices
+  end
+
+
+
+
 
 end

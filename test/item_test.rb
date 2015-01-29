@@ -10,19 +10,19 @@ class ItemTest < Minitest::Test
       item = Item.new({:id => "2", :unit_price => "12345"}, nil)
     assert item
   end
-end
 
+end
 
 class ItemParserTest < Minitest::Test
 
   def test_it_exists
-    filename = "./test/support/items_test.csv"
+    filename = "./test/support/items.csv"
     itemparser = ItemParser.new(filename, nil)
     assert itemparser
   end
 
   def test_it_parses_a_csv
-    filename = './test/support/items_test.csv'
+    filename = './test/support/items.csv'
     itemparser = ItemParser.new(filename, nil)
     items = itemparser.parse
 

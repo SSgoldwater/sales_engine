@@ -3,8 +3,6 @@ require_relative "./invoice.rb"
 require 'pry'
 require 'csv'
 
-# "1,1,26,shipped", "2,1,75,shipped", "3,1,78,shipped", "4,1,33,shipped"
-
 class InvoiceRepository
 
   def initialize(filename = "./test/support/invoices_test.csv", engine)
@@ -17,77 +15,36 @@ class InvoiceRepository
     "#<#{self.class} #{@merchants.size} rows>"
   end
 
-
   def all
-    all = []
-    @file.each do |invoice|
-      all << "ID: #{invoice.id}, CUSTOMER: #{invoice.customer_id}, MERCHANT: #{invoice.merchant_id}, STATUS: #{invoice.status}"
-    end
-    all
+    @file
   end
 
   def random
-    random_invoice = @file.sample
+    @file.sample
   end
 
-  def find_by_id(id_num = nil)
-    @file.each do |invoice|
-      if invoice.id == id_num
-        return invoice
-      end
-    end
-  end
-
-  def find_by_customer_id(customer = nil)
-    @file.each do |invoice|
-      if invoice.customer_id == customer
-        return "ID: #{invoice.id}, CUSTOMER: #{invoice.customer_id}, MERCHANT: #{invoice.merchant_id}, STATUS: #{invoice.status}"
-      end
-    end
+  def find_by_id(id_num = 1)
+    @file.detect{|invoice| invoice.id == id_num}
   end
 
   def find_by_status(status)
-    @file.each do |invoice|
-      if invoice.status == status
-        return invoice
-      else
-        return nil
-      end
-    end
+    @file.detect{|invoice| invoice.status == status}
   end
 
-  def find_all_by_customer_id(customer_id = nil)
-    invoices = []
-    @file.each do |invoice|
-      if invoice.customer_id == customer_id
-        invoices << invoice
-      end
-    end
-    invoices
+  def find_all_by_customer_id(customer_id = 3)
+    @file.select{|invoice| invoice.customer_id == customer_id}
   end
 
-  def find_all_by_merchant_id(merchant_id)
-    invoices = []
-    @file.each do |invoice|
-      if invoice.merchant_id == merchant_id
-        invoices << invoice
-      end
-    end
-    invoices
+  def find_all_by_merchant_id(merchant_id= 33)
+    @file.select{|invoice| invoice.merchant_id == merchant_id}
   end
 
-  def find_all_by_status(status)
-    invoices = []
-    @file.each do |invoice|
-      if invoice.status == status
-        invoices << invoice
-      end
-    end
-    invoices
+  def find_all_by_status(status= "shipped")
+    @file.select{|invoice| invoice.status == status}
   end
 
-
-
-
+  def get_merchant_invoices_by_customer_id(customer_id)
+    @file.select{|invoice| invoice.customer_id == customer_id.to_i}
+  end
 
 end

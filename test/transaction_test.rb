@@ -31,13 +31,13 @@ require_relative '../lib/transaction_parser.rb'
 class TransactionParserTest < Minitest::Test
 
   def test_it_exists
-    filename = "./test/support/transactions_test.csv"
+    filename = "./test/support/transactions.csv"
     transactionparser = TransactionParser.new(filename, nil)
     assert transactionparser
   end
 
   def test_it_parses_a_csv
-    filename = "./test/support/transactions_test.csv"
+    filename = "./test/support/transactions.csv"
     transactionparser = TransactionParser.new(filename, nil)
     transactions = transactionparser.parse
 

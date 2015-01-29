@@ -2,7 +2,6 @@ require 'pry'
 require 'csv'
 require 'bigdecimal'
 
-
 class Item
   attr_reader :id, :name, :description, :unit_price, :merchant_id
 
@@ -13,9 +12,7 @@ class Item
     @description = data_line[:description]
     @unit_price = BigDecimal.new(data_line[:unit_price])
     @merchant_id = data_line[:merchant_id].to_i
-
   end
-
 
   def invoice_items
     @engine.invoice_item_repository.find_all_by_item_id(@id)
@@ -24,5 +21,9 @@ class Item
   def merchant
     @engine.merchant_repository.find_by_id(@merchant_id)
   end
-  
+
+  def best_day
+    #returns the date with the most sales for the given item using the invoice date
+  end
+
 end

@@ -6,7 +6,7 @@ require 'pry'
 class MerchantTest < Minitest::Test
 
   def test_it_stores_an_id
-    merchant = Merchant.new({:id => 6}, nil)
+    merchant = Merchant.new({:id => "6"}, nil)
     assert_equal 6, merchant.id
   end
 
@@ -17,19 +17,18 @@ class MerchantTest < Minitest::Test
 
 end
 
-
 require_relative '../lib/merchant_parser.rb'
 
 class MerchantParserTest < Minitest::Test
 
   def test_it_exists
-    filename = "./test/support/merchants_test.csv"
+    filename = "./test/support/merchants.csv"
     merchantparser = MerchantParser.new(filename, nil)
     assert merchantparser
   end
 
   def test_it_parses_a_csv
-    filename = "./test/support/merchants_test.csv"
+    filename = "./test/support/merchants.csv"
     merchantparser = MerchantParser.new(filename, nil)
     merchants = merchantparser.parse
 
@@ -41,6 +40,5 @@ class MerchantParserTest < Minitest::Test
     assert_equal 2, second.id
     assert_equal "Klein, Rempel and Jones", second.name
   end
-
 
 end

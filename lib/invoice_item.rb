@@ -1,7 +1,6 @@
 require 'pry'
 require 'csv'
 
-
 class InvoiceItem
   attr_reader :id, :item_id, :invoice_id, :quantity, :unit_price
 
@@ -12,7 +11,6 @@ class InvoiceItem
     @invoice_id = data[:invoice_id].to_i
     @quantity = data[:quantity].to_i
     @unit_price = data[:unit_price].to_i
-
   end
 
   def item
@@ -25,7 +23,6 @@ class InvoiceItem
 
   def name
     @engine.item_repository.find_by_id(@item_id)
-    
   end
 
 end

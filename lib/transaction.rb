@@ -1,7 +1,6 @@
 require 'pry'
 require 'csv'
 
-
 class Transaction
   attr_reader :id, :invoice_id, :credit_card_number, :result
 

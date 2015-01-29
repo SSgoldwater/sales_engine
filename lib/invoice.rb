@@ -17,6 +17,10 @@ class Invoice
     @engine.transaction_repository.find_all_by_invoice_id(@id)
   end
 
+  def invoice_items
+    @engine.invoice_item_repository.find_all_by_invoice_id(@id)
+  end
+
   def items
     @engine.invoice_item_repository.find_all_by_invoice_id(@id)
   end
@@ -25,8 +29,8 @@ class Invoice
     @engine.customer_repository.find_by_id(@customer_id)
   end
 
-  def invoice_items
-    @engine.invoice_item_repository.find_all_by_invoice_id(@id)
+  def merchant
+    @engine.merchant_repository.find_by_merchant_id(@merchant_id)
   end
 
 end

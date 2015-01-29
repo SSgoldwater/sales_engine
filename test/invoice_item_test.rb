@@ -35,13 +35,13 @@ require_relative '../lib/invoice_item_parser.rb'
 class InvoiceItemParserTest < Minitest::Test
 
   def test_it_exists
-    filename = ".test/support/invoice_items_test.csv"
+    filename = ".test/support/invoice_items.csv"
     invoice_item_parser = InvoiceItemParser.new(filename, nil)
     assert invoice_item_parser
   end
 
   def test_it_parses_a_csv
-    filename = "./test/support/invoice_items_test.csv"
+    filename = "./test/support/invoice_items.csv"
     invoice_item_parser = InvoiceItemParser.new(filename, nil)
     invoice_items = invoice_item_parser.parse
 
@@ -51,13 +51,11 @@ class InvoiceItemParserTest < Minitest::Test
     assert_equal 5, first.quantity
     assert_equal 13635, first.unit_price
 
-
     second = invoice_items[1]
     assert_equal 528, second.item_id
     assert_equal 2, second.invoice_id
     assert_equal 9, second.quantity
     assert_equal 23324, second.unit_price
   end
-
 
 end

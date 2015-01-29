@@ -6,7 +6,7 @@ require 'pry'
 class CustomerRepositoryTest < Minitest::Test
 
   def setup
-    @customer_repository = CustomerRepository.new("./test/support/customers_test.csv", nil)
+    @customer_repository = CustomerRepository.new("./test/support/customers.csv", nil)
   end
 
   def test_it_exists?
@@ -38,24 +38,37 @@ class CustomerRepositoryTest < Minitest::Test
   def test_find_by_id_returns_correct_match
     expected = Customer.new({:id => "2", :first_name => "Cecelia", :last_name => "Osinski" }, nil)
     actual = @customer_repository.find_by_id(2)
+
     assert_equal expected.id, actual.id
   end
 
+  def test_it_has_find_by_first_name_method
+    assert @customer_repository.find_by_first_name
+  end
+
+  def test_find_by_first_name_returns_correct_match
+    expected = Customer.new({:id => "2", :first_name => "Cecelia", :last_name => "Osinski" }, nil)
+    actual = @customer_repository.find_by_first_name("cecelia")
+
+    assert_equal expected.first_name, actual.first_name
+  end
+
   def test_it_has_find_by_last_name_method
-    assert @customer_repository.find_by_last_name(name)
+    assert @customer_repository.find_by_last_name
   end
 
   def test_find_by_last_name_returns_correct_match
     expected = Customer.new({:id => "2", :first_name => "Cecelia", :last_name => "Osinski" }, nil)
     actual = @customer_repository.find_by_last_name("Osinski")
+
     assert_equal expected.last_name, actual.last_name
   end
 
-  def test_it_has_a_find_all_records_by_name_method
-    assert @customer_repository.find_all_by_first_name(name)
+  def test_it_has_find_all_by_first_name_method
+    assert @customer_repository.find_all_by_first_name
   end
 
-  def test_find_all_by_first_name_returns_matches
+  def test_it_can_find_all_customers_by_first_name
     expected_customers = [Customer.new({:first_name => "Sylvester"}, nil), Customer.new({:first_name => "Sylvester"}, nil)]
     actual_customers = @customer_repository.find_all_by_first_name("Sylvester")
 
@@ -63,5 +76,19 @@ class CustomerRepositoryTest < Minitest::Test
     actual_first_names = actual_customers.map{|customer| customer.first_name}
 
     assert_equal expected_first_names, actual_first_names
+  end
+
+  def test_it_has_find_all_by_last_name_method
+    assert @customer_repository.find_all_by_last_name
+  end
+
+  def test_it_can_find_all_customers_by_last_name
+    expected_customers = [Customer.new({:last_name => "Nader"}, nil), Customer.new({:last_name => "Nader"}, nil)]
+    actual_customers = @customer_repository.find_all_by_last_name("Nader")
+
+    expected_last_names = expected_customers.map{|customer| customer.last_name}
+    actual_last_names = actual_customers.map{|customer| customer.last_name}
+
+    assert_equal expected_last_names, actual_last_names
   end
 end

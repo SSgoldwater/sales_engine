@@ -4,7 +4,6 @@ require 'pry'
 
 
 class MerchantRepository
-
   def initialize(filename= "./test/support/merchants_test.csv", engine)
     parser = MerchantParser.new(filename, engine)
     @file = parser.parse
@@ -15,43 +14,35 @@ class MerchantRepository
   end
 
   def all
-    all = []
-    @file.each do |merchant|
-      all << merchant
-    end
-    all
+    @file
   end
 
   def random
     @file.sample
   end
 
-  def find_by_id(id_num= nil)
-    @file.each do |merchant|
-      if merchant.id == id_num
-        return merchant
-      end
-    end
+  def find_by_id(id_num = 1)
+    @file.detect{|merchant| merchant.id == id_num}
   end
 
-
-  def find_by_name(name = nil)
-    @file.each do |merchant|
-      if merchant.name.downcase == name.downcase
-        return merchant
-      end
-    end
+  def find_by_name(name = "willms and sons")
+    @file.detect{|merchant| merchant.name.downcase == name.downcase}
   end
 
   def find_all_by_name(name)
-    names = []
-    @file.each do |merchant|
-      if merchant.name.downcase == name.downcase
-        names << merchant
-      end
-    end
-    names
+    @file.select{|merchant| merchant.name.downcase == name.downcase}
+   end
+
+  def most_revenue(x= 1)
+    #returns the top x merchant instances ranked by total revenue
   end
 
+  def most_items(x= 1)
+    #returns the top x merchant instances ranked by total number of items sold
+  end
 
+  def revenue(date)
+    #returns the total revenue for that date across all merchants
+  end
+  
 end

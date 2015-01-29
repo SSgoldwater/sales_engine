@@ -14,9 +14,6 @@ class TransactionParser
     file.map do |line|
       Transaction.new(line, @engine)
     end
-
   end
-
-
 
 end

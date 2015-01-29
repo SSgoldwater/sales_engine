@@ -28,13 +28,13 @@ require_relative '../lib/customer_parser.rb'
 class CustomerParserTest < Minitest::Test
 
   def test_it_exists
-    filename = "./test/support/customers_test.csv"
+    filename = "./test/support/customers.csv"
     invoiceparser = CustomerParser.new(filename, nil)
     assert invoiceparser
   end
 
   def test_it_parses_a_csv
-    filename = "./test/support/customers_test.csv"
+    filename = "./test/support/customers.csv"
     customerparser = CustomerParser.new(filename, nil)
     customers = customerparser.parse
 

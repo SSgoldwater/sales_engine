@@ -15,4 +15,5 @@ class InvoiceParser
       Invoice.new(line, @engine)
     end
   end
+  
 end
